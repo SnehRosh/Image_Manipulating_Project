@@ -17,7 +17,6 @@ with st.container():
     st.title(':rainbow[Image Manipulation App]')
     
 
-
 uploaded_file = st.file_uploader("Choose a image file", type="jpg")
 
 
@@ -29,10 +28,7 @@ elif uploaded_file is not None:
     #  let's display the image:
     st.image(open_image,caption='Original Image')
 
-   
-
 actions = {}
-
 
 #Resize
 st.subheader('Resize the image',divider='blue')
@@ -56,7 +52,6 @@ else:
 
 
     
-
 #Color change
 st.subheader('Convert the color of the image',divider='rainbow')
 
@@ -90,6 +85,7 @@ if btn:
         mime="image/png"
         )
 
+
 #Rotate
 st.subheader('Rotate the image',divider='blue')
 
@@ -120,7 +116,7 @@ if btn:
         )
 
     
-    
+
 #crop
 st.subheader('Crop the image',divider='blue')
 
@@ -135,11 +131,12 @@ if btn and isinstance(lft, (int,float)) and isinstance(rgt, (int, float)) and is
     Cropped=open_image.crop((lft,upr,rgt,lwr))
     c2.image(Cropped)
     Cropped.save('Cropped.png')
-    btn = st.download_button(
-            label="Download image",
-            data=open('Cropped.png', 'rb').read(),
-            file_name="Cropped_image.png",
-            mime="image/png"
-            )
+    
+    bton = st.download_button(
+        label="Download image",
+        data=open('Cropped.png', 'rb').read(),
+        file_name="Cropped_image.png",
+        mime="image/png"
+        )
 else:
     c2.info("Please enter numeric values")
