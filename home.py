@@ -21,20 +21,22 @@ with st.container():
 uploaded_file = st.file_uploader("Choose a image file", type="jpg")
 
 
-with st.spinner('Processing Image'):
-    if uploaded_file is not None:
-        # Convert the file to an opencv image.
-        open_image=Image.open(uploaded_file)
-        
-        #  let's display the image:
-        st.image(open_image,caption='Original Image')
+if uploaded_file is None:
+     print('Please upload the file')
+elif uploaded_file is not None:
+    # Convert the file to an opencv image.
+    open_image=Image.open(uploaded_file)
+    #  let's display the image:
+    st.image(open_image,caption='Original Image')
+
+   
 
 actions = {}
 
-st.subheader('Resize the image',divider='blue')
-c1,c2=st.columns(2)
+
 #Resize
- 
+st.subheader('Resize the image',divider='blue')
+c1,c2=st.columns(2) 
 f = c1.form('resize')
 ht = f.number_input('Enter the height of image: ',placeholder='Type a number',value=0)
 wd = f.number_input('Enter the width of image: ', placeholder='Type a Number',value=0)
@@ -59,6 +61,7 @@ else:
 st.subheader('Convert the color of the image',divider='rainbow')
 
 c1,c2=st.columns(2)
+f=c1.form('Filter Image')
 filter_options = ['Outline','Inverted oulined','Emboss','Blur','Min_Filter','Sharpen','Smooth']
 filter = c1.radio("apply an image filter",filter_options)
 f_image = open_image
@@ -77,40 +80,47 @@ if filter == filter_options[5]:
 if filter == filter_options[6]:
     f_image = open_image.filter(ImageFilter.SMOOTH)          
 c2.image(f_image)
-f_image.save('fimage.png')
-btn = st.download_button(
-    label="Download image",
-    data=open('fimage.png', 'rb').read(),
-    file_name="image_filter.png",
-    mime="image/png"
-    )
+btn = f.form_submit_button(":red[Click here to get download button]") 
+if btn:    
+    f_image.save('Filtered.png')
+    btn = st.download_button(
+        label="Download image",
+        data=open('Filtered.png', 'rb').read(),
+        file_name="Filtered_image.png",
+        mime="image/png"
+        )
 
 #Rotate
 st.subheader('Rotate the image',divider='blue')
 
 c1,c2=st.columns(2)
-
+f = c1.form('Rotate')
 rotate_options = ['Right','Left','Invert','Original']
 rotate = c1.radio("apply an image filter",rotate_options)
 if rotate==rotate_options[0]:
-    Ri=open_image.rotate(90,expand=True)
-    
+    Ri=open_image.rotate(90,expand=True)  
+
 if rotate==rotate_options[1]:
     Ri=open_image.rotate(-90,expand=True)
-    
+
 if rotate==rotate_options[2]:
     Ri =open_image.rotate(180,expand=True)
-    
+ 
 if rotate==rotate_options[3]:
     Ri=open_image
 c2.image(Ri)
-Ri.save('Oriented.png')
-btn = st.download_button(
-    label="Download image",
-    data=open('Oriented.png', 'rb').read(),
-    file_name="Oriented_image.png",
-    mime="image/png"
-    )
+btn = f.form_submit_button(":red[Click here to get download button]") 
+if btn:    
+    Ri.save('Oriented.png')
+    btn = st.download_button(
+        label="Download image",
+        data=open('Oriented.png', 'rb').read(),
+        file_name="Oriented_image.png",
+        mime="image/png"
+        )
+
+    
+    
 #crop
 st.subheader('Crop the image',divider='blue')
 
