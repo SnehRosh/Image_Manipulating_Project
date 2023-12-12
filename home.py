@@ -1,5 +1,4 @@
 import streamlit as st
-import cv2     # image processing
 import numpy as np # numerical processing
 from PIL import Image # image processing
 from PIL import ImageDraw, ImageFont, ImageFilter, ImageEnhance
